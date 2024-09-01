@@ -32,6 +32,7 @@ app.get('/api/users', async (req, res) => {
 app.post('/api/users', async (req, res) => {
     try {
         const { name, email } = req.body;
+        console.log(req.body);
         const result = await pool.query(
             'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
             [name, email]
