@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Container, Typography, Box, Paper } from '@mui/material';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import './style.css';
@@ -11,11 +12,20 @@ const App = () => {
     };
 
     return (
-        <div className="App">
-            <h1>Todo App</h1>
-            <TodoForm onTodoAdded={handleTodoAdded} />
-            <TodoList key={refresh} />
-        </div>
+        <Container maxWidth="md">
+            <Box my={4}>
+                <Typography variant="h3" component="h1" align="center" gutterBottom>
+                    Todo App
+                </Typography>
+                <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
+                    <TodoForm onTodoAdded={handleTodoAdded} />
+                </Paper>
+                <Paper elevation={3} style={{ padding: '20px' }}>
+                    <TodoList key={refresh} />
+                </Paper>
+            </Box>
+           
+        </Container>
     );
 };
 
