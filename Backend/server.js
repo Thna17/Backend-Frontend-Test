@@ -23,12 +23,7 @@ app.get('/api/todos', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM todos');
         console.log(result.rows);
-        res.status(200).json({
-            status: 'success',
-            data: {
-                result: result.rows
-            }
-        });
+        res.json(result.rows);
     } catch (err) {
         console.error(err.message);
     }

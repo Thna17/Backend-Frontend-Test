@@ -1,57 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
+import './style.css';
 
-function App() {
-    const [actors, setActors] = useState([]);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+const App = () => {
+    const [refresh, setRefresh] = useState(false);
 
-    useEffect(() => {
-        fetch('http://localhost:5001/api/users')
-            .then(response => response.json())
-            .then(data => setActors(data));
-    }, []);
-
-    const addUser = () => {
-        fetch('http://localhost:5001/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email }),
-        })
-            .then(response => response.json())
-            .then(user => {
-                // Update UI with the new user
-                setActors([...actors, user]);
-            });
+    const handleTodoAdded = (newTodo) => {
+        setRefresh(!refresh);
     };
 
     return (
         <div className="App">
-            <h1>Actor List</h1>
-            <ul>
-                {actors.map(actor => (
-                    <li key={actor.actor_id}>
-                        {actor.first_name} {actor.last_name} - Last Update: {new Date(actor.last_update).toLocaleString()}
-                    </li>
-                ))}
-            </ul>
-            <h2>Add User</h2>
-            <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <button onClick={addUser}>Add</button>
+            <h1>Todo App</h1>
+            <TodoForm onTodoAdded={handleTodoAdded} />
+            <TodoList key={refresh} />
         </div>
     );
-}
+};
 
 export default App;
