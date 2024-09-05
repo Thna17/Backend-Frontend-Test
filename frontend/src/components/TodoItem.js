@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
 import { ListItem, ListItemText, IconButton, Checkbox, Typography, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-
 const TodoItem = ({ todo, onDelete, onUpdate }) => {
+    console.log(todo);
+    
+
     const handleDelete = () => {
         onDelete(todo.id);
     };

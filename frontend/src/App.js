@@ -5,6 +5,7 @@ import TodoForm from './components/TodoForm';
 import './style.css';
 
 const App = () => {
+ 
     const [refresh, setRefresh] = useState(false);
 
     const handleTodoAdded = (newTodo) => {
