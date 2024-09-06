@@ -28,6 +28,7 @@ const todosApi = createApi({
                     url: '/api/auth/register',
                     method: 'POST',
                     body: userData,
+                    
                 }),
             }),
             logout: builder.mutation({
