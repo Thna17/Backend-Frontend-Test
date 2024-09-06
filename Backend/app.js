@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const todoRoute = require('./routes/todoRoutes');
 const authRoutes = require('./routes/authRoutes');
+const authenticateToken = require('./middleware/authenticateToken');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -19,9 +20,10 @@ app.use((req, res, next) => {
     console.log('Hello from the middleware!');
     next();
 })
-
 app.use('/api/todos', todoRoute);
+app.use('/api/todos', authenticateToken);
 app.use('/api/auth', authRoutes);
+
 app.use(errorHandler)
 
 module.exports = app;

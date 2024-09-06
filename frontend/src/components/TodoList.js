@@ -1,35 +1,35 @@
 import React from 'react';
-// import { useSelector, useDispatch } from'react-redux';
-import { useFetchTodosQuery } from '../store'
-// import axios from 'axios';
-import TodoItem from './TodoItem';
-import { Typography, CircularProgress } from '@mui/material';
+import { useFetchTodosQuery } from '../store/apis/todosApi';
+import { Container, Typography, List, Divider, CircularProgress, Alert } from '@mui/material';
+import TodoItem from './TodoItem'; // Import TodoItem component
 
 const TodoList = () => {
-    const {data, error, isLoading} = useFetchTodosQuery();
-    console.log('data:', data);
-    
+  const { data, error, isLoading } = useFetchTodosQuery();
 
-    if (isLoading) {
-        return <CircularProgress />;
-    }
-    if (data.length === 0) {
-        return <Typography variant="h6">No todos available. Add some!</Typography>;
-    }
-    if (error) {
-        return <Typography variant="h6">Error fetching todos</Typography>;
-    }
+  if (isLoading) return <CircularProgress />;
+  if (error) return <Alert severity="error">Error: {error.message}</Alert>;
 
-    return (
-        <div>
-            <h2>Todo List</h2>
-            <ul>
-                {data.map(todo => (
-                    <TodoItem key={todo.id} todo={todo} onDelete={{}} />
-                ))}
-            </ul>
-        </div>
-    );
+  const todos = data || [];
+
+  return (
+    <Container maxWidth="md" sx={{ mt: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        Todo List
+      </Typography>
+      <List>
+        {todos.length > 0 ? (
+          todos.map((todo) => (
+            <React.Fragment key={todo.id}>
+              <TodoItem todo={todo} />
+              <Divider />
+            </React.Fragment>
+          ))
+        ) : (
+          <Typography variant="body1">No todos available</Typography>
+        )}
+      </List>
+    </Container>
+  );
 };
 
 export default TodoList;
